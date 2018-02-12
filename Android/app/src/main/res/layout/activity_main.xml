@@ -101,7 +101,7 @@
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="80dp"
             android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/plus_icon" />
+            app:srcCompat="@drawable/ic_add_circle_black_24dp" />
     </FrameLayout>
 
     <!-- SLIDING LAYOUT -->
