@@ -2,6 +2,8 @@ package me.kungfucat.tripsplit;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     SlidingUpPanelLayout slidingUpPanelLayout;
     SmartTabLayout smartViewPagerTab;
     ViewPager viewPager;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,10 @@ public class MainActivity extends AppCompatActivity {
         slidingUpPanelLayout = findViewById(R.id.sliding_layout);
         viewPager = findViewById(R.id.viewPager);
         smartViewPagerTab = findViewById(R.id.viewpagertab);
-
+        floatingActionButton = findViewById(R.id.fab);
 
         dv = 100.00f;
         cv = 50.00f;
-
 
         setUpPieChart();
         slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
@@ -61,9 +63,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), 1));
         smartViewPagerTab.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     public void setUpPieChart() {

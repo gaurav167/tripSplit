@@ -14,26 +14,28 @@ import java.util.ArrayList;
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     ArrayList<String> arrayList = new ArrayList<>();
+    int userId;
 
-    public MainViewPagerAdapter(FragmentManager fm) {
+    public MainViewPagerAdapter(FragmentManager fm, int userId) {
         super(fm);
         arrayList.add("Friends");
         arrayList.add("Groups");
         arrayList.add("History");
+        this.userId = userId;
     }
 
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
-        if (position == 0) {
+        if (position == 1) {
             GroupFragment groupFragment = GroupFragment.newInstance();
             fragment = groupFragment;
-        } else if (position == 1) {
-            GroupFragment groupFragment = GroupFragment.newInstance();
-            fragment = groupFragment;
+        } else if (position == 0) {
+            FriendFragment friendFragment = FriendFragment.newInstance();
+            fragment = friendFragment;
         } else if (position == 2) {
-            GroupFragment groupFragment = GroupFragment.newInstance();
-            fragment = groupFragment;
+            HistoryFragment historyFragment = HistoryFragment.newInstance(userId);
+            fragment = historyFragment;
         }
         return fragment;
     }

@@ -11,17 +11,18 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupFragment extends Fragment {
+public class FriendFragment extends Fragment {
 
 
-    public GroupFragment() {
+    public FriendFragment() {
         // Required empty public constructor
     }
 
-    public static GroupFragment newInstance() {
+    public static FriendFragment newInstance() {
 
         Bundle args = new Bundle();
-        GroupFragment fragment = new GroupFragment();
+
+        FriendFragment fragment = new FriendFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,7 +32,7 @@ public class GroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group, container, false);
+        return inflater.inflate(R.layout.fragment_friend, container, false);
     }
 
 }
