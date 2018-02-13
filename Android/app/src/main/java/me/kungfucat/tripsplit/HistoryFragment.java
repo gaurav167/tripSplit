@@ -26,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HistoryFragment extends Fragment {
 
@@ -51,15 +52,17 @@ public class HistoryFragment extends Fragment {
         View row = inflater.inflate(R.layout.fragment_history, container, false);
         Bundle bundle = getArguments();
         int userId = bundle.getInt("userId");
-
-        ArrayList<HistoryModel> historyModels = getTransactions(userId);
+        HistoryFragmentTask task = new HistoryFragmentTask();
+        task.execute();
         ListView listView = row.findViewById(R.id.historyListView);
+        ArrayList<HistoryModel> historyModels = RowClickedListener.getTransactions(userId);
         HistoryAdapter adapter = new HistoryAdapter(getContext(), historyModels);
         listView.setAdapter(adapter);
         return row;
     }
 
     class HistoryAdapter extends BaseAdapter {
+
         ArrayList<HistoryModel> arrayList;
         Context context;
 
@@ -92,55 +95,19 @@ public class HistoryFragment extends Fragment {
 
             transaction.setText(arrayList.get(i).getValue() + "");
             timeStamp.setText(arrayList.get(i).getTimeStamp() + "");
-            groupNameTextView.setText(arrayList.get(i).getGroupId() + " ABCD");
+            String[] GroupNames = {"Food", "Travel", "Party"};
+            groupNameTextView.setText("" + GroupNames[getVal()]);
             return viewRow;
         }
     }
 
-    public ArrayList<HistoryModel> getTransactions(int userId) {
-        ArrayList<HistoryModel> historyModels = new ArrayList<>();
-        HistoryModel historyModel1 = new HistoryModel(),
-                historyModel2 = new HistoryModel(),
-                historyModel3 = new HistoryModel(),
-                historyModel4 = new HistoryModel();
-
-        historyModel1.setTimeStamp("02/13/18");
-        historyModel1.setTransactionId(102);
-        historyModel1.setGroupId(1);
-        historyModel1.setUserId(1);
-        historyModel1.setValue(123);
-
-        historyModels.add(historyModel1);
-
-        historyModel2.setTimeStamp("03/13/18");
-        historyModel2.setTransactionId(104);
-        historyModel2.setGroupId(2);
-        historyModel2.setUserId(1);
-        historyModel2.setValue(192);
-
-        historyModels.add(historyModel2);
-
-
-        historyModel3.setTimeStamp("03/13/18");
-        historyModel3.setTransactionId(104);
-        historyModel3.setGroupId(2);
-        historyModel3.setUserId(1);
-        historyModel3.setValue(192);
-
-        historyModels.add(historyModel3);
-
-        historyModel4.setTimeStamp("05/13/18");
-        historyModel4.setTransactionId(105);
-        historyModel4.setGroupId(3);
-        historyModel4.setUserId(1);
-        historyModel4.setValue(12);
-
-        historyModels.add(historyModel4);
-
-        return historyModels;
+    public int getVal() {
+        Random random = new Random();
+        int values = random.nextInt(3);
+        return values;
     }
 
-    class MyTask extends AsyncTask<String, Void, String> {
+    class HistoryFragmentTask extends AsyncTask<String, Void, String> {
 
 
         @Override
@@ -189,8 +156,8 @@ public class HistoryFragment extends Fragment {
             try {
 
                 JSONObject jsonObject = new JSONObject(result);
-                String weatherInfo = jsonObject.getString("weather");
-                JSONArray arr = new JSONArray(weatherInfo);
+                String data = jsonObject.getString("id");
+                JSONArray arr = new JSONArray(data);
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject jsonPart = arr.getJSONObject(i);
