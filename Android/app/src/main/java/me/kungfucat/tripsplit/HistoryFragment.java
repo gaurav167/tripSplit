@@ -1,9 +1,12 @@
 package me.kungfucat.tripsplit;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,17 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class HistoryFragment extends Fragment {
@@ -76,8 +90,8 @@ public class HistoryFragment extends Fragment {
             TextView timeStamp = viewRow.findViewById(R.id.timeStamp);
             TextView groupNameTextView = viewRow.findViewById(R.id.groupNameTextView);
 
-            transaction.setText(arrayList.get(i).getValue()+"");
-            timeStamp.setText(arrayList.get(i).getTimeStamp()+"");
+            transaction.setText(arrayList.get(i).getValue() + "");
+            timeStamp.setText(arrayList.get(i).getTimeStamp() + "");
             groupNameTextView.setText(arrayList.get(i).getGroupId() + " ABCD");
             return viewRow;
         }
@@ -124,5 +138,70 @@ public class HistoryFragment extends Fragment {
         historyModels.add(historyModel4);
 
         return historyModels;
+    }
+
+    class MyTask extends AsyncTask<String, Void, String> {
+
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String result = "";
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL(strings[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setReadTimeout(10000);
+                urlConnection.setConnectTimeout(15000);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                ContentValues values = new ContentValues();
+                values.put("valueId", strings[2]);
+                OutputStream os = urlConnection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                StringBuilder sb = new StringBuilder();
+                sb.append(URLEncoder.encode("data", "UTF-8"));
+                sb.append("=");
+                sb.append(URLEncoder.encode(strings[2], "UTF-8"));
+                writer.write(sb.toString());
+                writer.flush();
+                writer.close();
+                os.close();
+                urlConnection.connect();
+                InputStream in = urlConnection.getInputStream();
+                InputStreamReader reader = new InputStreamReader(in);
+                int data = reader.read();
+                while (data != -1) {
+                    char current = (char) data;
+                    result += current;
+                    data = reader.read();
+                }
+                return result;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            try {
+
+                JSONObject jsonObject = new JSONObject(result);
+                String weatherInfo = jsonObject.getString("weather");
+                JSONArray arr = new JSONArray(weatherInfo);
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject jsonPart = arr.getJSONObject(i);
+                    Log.i("testing", jsonPart.getString("main"));
+                    Log.i("testing", jsonPart.getString("description"));
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

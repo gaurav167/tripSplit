@@ -21,7 +21,6 @@ import java.util.ArrayList;
  */
 public class FriendFragment extends Fragment {
 
-
     public FriendFragment() {
         // Required empty public constructor
     }

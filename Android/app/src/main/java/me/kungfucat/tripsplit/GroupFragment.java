@@ -20,6 +20,7 @@ import java.util.ArrayList;
  */
 public class GroupFragment extends Fragment {
 
+    public static ArrayList<GroupModel> arrayList;
 
     public GroupFragment() {
         // Required empty public constructor
@@ -40,7 +41,7 @@ public class GroupFragment extends Fragment {
         // Inflate the layout for this fragment
         View row = inflater.inflate(R.layout.fragment_group, container, false);
         ListView listView = row.findViewById(R.id.groupListView);
-        ArrayList<GroupModel> arrayList = getGroupArrayList();
+        arrayList = getGroupArrayList();
         GroupAdapter adapter = new GroupAdapter(getContext(), arrayList);
         listView.setAdapter(adapter);
         return row;
