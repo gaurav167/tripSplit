@@ -10,6 +10,11 @@ import StringIO
 import re
 
 
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+    
 def readimage(path):
     count = os.stat(path).st_size / 2
     with open(path, "rb") as f:

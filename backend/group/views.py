@@ -7,6 +7,8 @@ from transaction.models import Transaction
 import json
 
 
+
+
 def create(request):
 	if request.method == "POST":
 		# Take user_ids (list) from POST
