@@ -18,8 +18,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     public MainViewPagerAdapter(FragmentManager fm, int userId) {
         super(fm);
-        arrayList.add("Friends");
         arrayList.add("Groups");
+        arrayList.add("Friends");
         arrayList.add("History");
         this.userId = userId;
     }
@@ -27,10 +27,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
-        if (position == 1) {
+        if (position == 0) {
             GroupFragment groupFragment = GroupFragment.newInstance();
             fragment = groupFragment;
-        } else if (position == 0) {
+        } else if (position == 1) {
             FriendFragment friendFragment = FriendFragment.newInstance();
             fragment = friendFragment;
         } else if (position == 2) {
