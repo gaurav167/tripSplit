@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         creditValue = findViewById(R.id.creditValue);
         debitValue = findViewById(R.id.debitValue);
         pieChart = findViewById(R.id.pieChart);
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
