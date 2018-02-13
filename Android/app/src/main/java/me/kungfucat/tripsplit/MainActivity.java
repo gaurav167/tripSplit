@@ -10,6 +10,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.eftimoff.viewpagertransformers.AccordionTransformer;
+import com.eftimoff.viewpagertransformers.BackgroundToForegroundTransformer;
+import com.eftimoff.viewpagertransformers.CubeOutTransformer;
+import com.eftimoff.viewpagertransformers.DefaultTransformer;
+import com.eftimoff.viewpagertransformers.DepthPageTransformer;
+import com.eftimoff.viewpagertransformers.ForegroundToBackgroundTransformer;
+import com.eftimoff.viewpagertransformers.RotateDownTransformer;
+import com.eftimoff.viewpagertransformers.RotateUpTransformer;
+import com.eftimoff.viewpagertransformers.TabletTransformer;
+import com.eftimoff.viewpagertransformers.ZoomInTransformer;
+import com.eftimoff.viewpagertransformers.ZoomOutSlideTransformer;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -26,6 +37,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         creditValue = findViewById(R.id.creditValue);
         debitValue = findViewById(R.id.debitValue);
         pieChart = findViewById(R.id.pieChart);
+        MyTask task = new MyTask();
         slidingUpPanelLayout = findViewById(R.id.sliding_layout);
         viewPager = findViewById(R.id.viewPager);
         smartViewPagerTab = findViewById(R.id.viewpagertab);
@@ -55,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         cv = 50.00f;
         creditValue.setText(cv + "");
         debitValue.setText(dv + "");
-
 
         setUpPieChart();
         slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
@@ -77,13 +89,73 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), 1));
         smartViewPagerTab.setViewPager(viewPager);
         viewPager.setCurrentItem(1);
+        setRandomPagerTransformer();
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setRandomPagerTransformer();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //TODO:ADD URL OF HOSTED
+        task.execute("");
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
+    }
+
+
+    public void setRandomPagerTransformer() {
+        Random random = new Random();
+
+        int i = random.nextInt(11);
+        switch (i) {
+            case 0:
+                viewPager.setPageTransformer(true, new AccordionTransformer());
+                return;
+            case 1:
+                viewPager.setPageTransformer(true, new BackgroundToForegroundTransformer());
+                return;
+            case 2:
+                viewPager.setPageTransformer(true, new CubeOutTransformer());
+                return;
+            case 3:
+                viewPager.setPageTransformer(true, new DefaultTransformer());
+                return;
+            case 4:
+                viewPager.setPageTransformer(true, new DepthPageTransformer());
+                return;
+            case 5:
+                viewPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
+                return;
+            case 6:
+                viewPager.setPageTransformer(true, new RotateDownTransformer());
+                return;
+            case 7:
+                viewPager.setPageTransformer(true, new RotateUpTransformer());
+                return;
+            case 8:
+                viewPager.setPageTransformer(true, new TabletTransformer());
+                return;
+            case 9:
+                viewPager.setPageTransformer(true, new ZoomInTransformer());
+                return;
+            case 10:
+                viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+                return;
+        }
     }
 
     public void setUpPieChart() {
@@ -134,12 +206,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             try {
                 JSONObject jsonObject = new JSONObject(result);
-                String weatherInfo = jsonObject.getString("data");
-                JSONArray arr = new JSONArray(weatherInfo);
+                String values = jsonObject.getString("data");
+                JSONArray arr = new JSONArray(values);
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject jsonPart = arr.getJSONObject(i);
-                    Log.i("DebitedValue", jsonPart.getString("debitedValue"));
-                    Log.i("CreditValue", jsonPart.getString("creditValue"));
+                    Log.i("DebitedValue", jsonPart.getInt("debitedValue") + "");
+                    cv = jsonPart.getInt("debitedValue");
+                    Log.i("CreditValue", jsonPart.getInt("creditValue") + "");
+                    dv = jsonPart.getInt("creditedValue");
                 }
 
             } catch (Exception e) {

@@ -1,7 +1,10 @@
 package me.kungfucat.tripsplit;
 
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,15 +54,30 @@ public class FriendFragment extends Fragment {
 
         public ListFriendAdapter() {
             arrayList = new ArrayList<>();
-            arrayList.add("+91 9282018810");
-            arrayList.add("+91 8739103859");
-            arrayList.add("+91 9813193848");
-            arrayList.add("+91 9283923849");
+            ContentResolver cr = getContext().getContentResolver(); //Activity/Application android.content.Context
+            Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                    if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+                        Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
+                        while (pCur.moveToNext()) {
+                            String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            if (contactNumber.length() >= 8)
+                                arrayList.add(contactNumber);
+                            break;
+                        }
+                        pCur.close();
+                    }
+
+                } while (cursor.moveToNext());
+            }
         }
 
         @Override
         public int getCount() {
-            return 4;
+            return arrayList.size();
         }
 
         @Override
