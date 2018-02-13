@@ -25,39 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/mainActivityToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/toolbarColor"
-                android:contentInsetEnd="0dp"
-                android:contentInsetLeft="0dp"
-                android:contentInsetRight="0dp"
-                android:contentInsetStart="0dp"
-                android:elevation="8dp"
-                android:paddingLeft="10dp"
-                app:contentInsetEnd="0dp"
-                app:contentInsetLeft="0dp"
-                app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp">
 
-                <LinearLayout
-                    android:id="@+id/normalToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/toolbarTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/app_name"
-                        android:textColor="#ffffff"
-                        android:textSize="22sp" />
-                </LinearLayout>
-            </android.support.v7.widget.Toolbar>
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/viewpagertab"
