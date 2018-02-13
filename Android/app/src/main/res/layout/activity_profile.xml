@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.kungfucat.tripsplit.ProfileActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/face1"
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name :"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_margin="4dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the name "
+        android:id="@+id/profile_name"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phone number :"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_margin="8dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the phone number "
+        android:id="@+id/profile_phone"
+        android:textColor="@color/colorAccent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_margin="4dp"/>
+
+</LinearLayout>
