@@ -2,7 +2,7 @@ from django.core import serializers
 from django.http import JsonResponse
 
 from . import models
-# from user.models import User
+from user.models import User
 from transaction.models import Transaction
 import json
 
