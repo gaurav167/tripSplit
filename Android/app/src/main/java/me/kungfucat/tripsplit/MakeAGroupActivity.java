@@ -21,7 +21,7 @@ public class MakeAGroupActivity extends AppCompatActivity {
         group_name = findViewById(R.id.make_group_name);
 
         //group id returned
-        Utility.groups.put(group_name.getText().toString(),gp_id);
+       // Utility.groups.put(group_name.getText().toString(),gp_id);
 
     }
 }

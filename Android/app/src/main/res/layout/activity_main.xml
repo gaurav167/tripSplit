@@ -63,13 +63,21 @@
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/fab"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="80dp"
             android:layout_marginRight="20dp"
-            app:srcCompat="@drawable/ic_add_circle_black_24dp" />
+            app:backgroundTint="@color/toolbarColor"
+            android:src="@mipmap/add" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbarColor"
+            />
     </FrameLayout>
 
     <!-- SLIDING LAYOUT -->
@@ -174,6 +182,7 @@
                 android:layout_height="300dp" />
 
         </LinearLayout>
+
     </LinearLayout>
 
 

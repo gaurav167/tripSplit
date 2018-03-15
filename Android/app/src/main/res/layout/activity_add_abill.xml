@@ -12,7 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Group :"
-    android:textAppearance="?android:textAppearanceLarge"
+    android:textAppearance="?android:textAppearanceMedium"
     android:layout_margin="8dp"
     android:textColor="@color/colorAccent"/>
 
@@ -27,7 +27,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Group Members :"
-    android:textAppearance="?android:textAppearanceLarge"
+    android:textAppearance="?android:textAppearanceMedium"
     android:layout_margin="4dp"
     android:textColor="@color/colorAccent"/>
 
@@ -39,7 +39,7 @@
    <EditText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Type member 1 name"
+        android:hint="member1 name"
        android:id="@+id/editTextmember1"
        android:layout_margin="4dp"
        android:layout_weight="1"/>
@@ -60,7 +60,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type member 2 name"
+        android:hint="member2 name"
         android:id="@+id/editTextmember2"
         android:layout_margin="4dp"
         android:layout_weight="1"/>
@@ -80,7 +80,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type member 3 name"
+        android:hint="member3 name"
         android:id="@+id/editTextmember3"
         android:layout_margin="4dp"
         android:layout_weight="1"/>
@@ -100,7 +100,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type member 4 name"
+        android:hint="member4 name"
         android:id="@+id/editTextmember4"
         android:layout_weight="1"/>
 
@@ -117,7 +117,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="8dp"
         android:background="@color/toolbarColor"
         android:text="Submit"
         android:textColor="@color/white"/>
@@ -126,10 +126,11 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_camera"
         android:layout_marginBottom="80dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
         android:tint="@color/white"
-        android:backgroundTint="@color/toolbarColor"
-        app:srcCompat="@drawable/ic_camera" />
+         />
 
 </LinearLayout>
