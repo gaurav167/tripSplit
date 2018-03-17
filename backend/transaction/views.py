@@ -6,7 +6,10 @@ from PIL import Image, ImageEnhance, ImageFilter
 import pytesseract
 
 import binascii
-import StringIO
+try:
+	import StringIO
+except:
+	from io import StringIO
 import re
 
 

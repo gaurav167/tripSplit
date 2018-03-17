@@ -6,28 +6,54 @@ from user.models import User
 from transaction.models import Transaction
 import json
 
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from group.models import Group
+from group.serializers import GroupSerializer
 
 
+@api_view(['GET'])
+def all_groups(request):
+	if request.method == "GET":
+		groups = Group.objects.all()
+		serializer = GroupSerializer(groups, many=True)
+		return Response(serializer.data)
 
+
+@api_view(['POST'])
 def create(request):
 	if request.method == "POST":
 		# Take user_ids (list) from POST
-		name = request.POST.get('name')
+		serializer = GroupSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		else:
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-		grp = Group(name=name)
-		grp.save()
 
-		for u_id in u_ids:
-			try:
-				usr = User.objects.get(id=u_id)
-				grp.users.add(usr)
-			except:
-				return JsonResponse({'error':'User id invalid.'})
-			else:
-				return JsonResponse({'error':'success', 'group_id':grp.id})
+@api_view(['GET','PUT','DELETE'])
+def group_stat(request, pk):
+	try:
+		grp = Group.objects.get(pk=pk)
+	except:
+		return Response(status=status.HTTP_404_NOT_FOUND)
 
-	else:
-		return JsonResponse({'error':'Only available via POST.','status_code':'400'})
+	if request.method == "GET":
+		serializer = GroupSerializer(grp)
+		return Response(serializer.data)
+
+	elif request.method == "PUT":
+		serializer = GroupSerializer(grp, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	elif request.method == 'DELETE':
+		grp.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 def total(request,g_id):

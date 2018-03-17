@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+	url(r'', views.all_groups, name='all_groups'),
     url(r'create/', views.create, name='group_create'),
     url(r'total/(?P<g_id>\d+)', views.total, name='total'),
     url(r'ghistory/(?P<g_id>\d+)', views.grp_history, name='grp_history'),
